@@ -6,49 +6,80 @@ import { QuotationDisplay } from "@/components/ui/quotation-display";
 import { RecentQuotations } from "@/components/ui/recent-quotations";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "@/hooks/use-toast";
 
 export default function Quotation() {
   const [generatedQuote, setGeneratedQuote] = useState<string | null>(null);
   const [recentQuotations, setRecentQuotations] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState("create");
+  const [isLoadingRecent, setIsLoadingRecent] = useState(false);
 
   // Load recent quotations from localStorage
   useEffect(() => {
     const savedQuotations = localStorage.getItem("recentQuotations");
     if (savedQuotations) {
       try {
-        setRecentQuotations(JSON.parse(savedQuotations));
+        const parsed = JSON.parse(savedQuotations);
+        console.log("Loaded quotations:", parsed);
+        setRecentQuotations(parsed);
       } catch (error) {
         console.error("Error parsing saved quotations:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load recent quotations",
+          variant: "destructive",
+        });
       }
     }
   }, []);
 
   // Save generated quotation to recent list
   useEffect(() => {
-    if (generatedQuote) {
-      const newQuotations = [
-        {
-          id: Date.now(),
-          date: new Date().toISOString(),
-          content: generatedQuote,
-          preview:
-            generatedQuote.split("\n").slice(0, 3).join(" ").substring(0, 80) +
-            "...",
-        },
-        ...recentQuotations,
-      ].slice(0, 10); // Keep only the 10 most recent
+    if (generatedQuote && !isLoadingRecent) {
+      const newQuotation = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        content: generatedQuote,
+        preview:
+          generatedQuote.split("\n").slice(0, 3).join(" ").substring(0, 80) +
+          "...",
+      };
+
+      const newQuotations = [newQuotation, ...recentQuotations].slice(0, 10); // Keep only the 10 most recent
+      console.log("Saving new quotation:", newQuotation);
+      console.log("Updated quotations list:", newQuotations);
 
       setRecentQuotations(newQuotations);
       localStorage.setItem("recentQuotations", JSON.stringify(newQuotations));
     }
-  }, [generatedQuote]);
+  }, [generatedQuote, isLoadingRecent]);
 
   const handleQuotationGenerated = (quote: string) => {
+    console.log("New quotation generated");
+    setIsLoadingRecent(false);
     setGeneratedQuote(quote);
   };
 
   const loadSavedQuotation = (content: string) => {
+    console.log("Loading saved quotation");
+    setIsLoadingRecent(true);
     setGeneratedQuote(content);
+    setActiveTab("create");
+    toast({
+      title: "Quotation Loaded",
+      description: "The selected quotation has been loaded",
+    });
+  };
+
+  const handleDeleteQuotation = (id: number) => {
+    console.log("Deleting quotation:", id);
+    const updated = recentQuotations.filter((q) => q.id !== id);
+    setRecentQuotations(updated);
+    localStorage.setItem("recentQuotations", JSON.stringify(updated));
+    toast({
+      title: "Quotation Deleted",
+      description: "The quotation has been removed from recent list",
+    });
   };
 
   return (
@@ -106,7 +137,11 @@ export default function Quotation() {
             </div>
 
             <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg border border-gray-100 p-6">
-              <Tabs defaultValue="create" className="mt-4">
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="mt-4"
+              >
                 <TabsList className="w-full max-w-md mx-auto grid grid-cols-2 mb-8">
                   <TabsTrigger
                     value="create"
@@ -132,16 +167,7 @@ export default function Quotation() {
                   <RecentQuotations
                     quotations={recentQuotations}
                     onSelect={loadSavedQuotation}
-                    onDelete={(id) => {
-                      const updated = recentQuotations.filter(
-                        (q) => q.id !== id
-                      );
-                      setRecentQuotations(updated);
-                      localStorage.setItem(
-                        "recentQuotations",
-                        JSON.stringify(updated)
-                      );
-                    }}
+                    onDelete={handleDeleteQuotation}
                   />
                 </TabsContent>
               </Tabs>
