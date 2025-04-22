@@ -342,7 +342,7 @@ function formatQuotation(quotation: any) {
   });
 
   const formatCurrency = (amount: number) => {
-    return `RWF ${formatter.format(amount)}`;
+    return `RWF ${amount.toLocaleString("en-US")}`;
   };
 
   return `
@@ -362,9 +362,11 @@ ${quotation.items
     (item: any, index: number) => `
 ${(index + 1).toString().padStart(2, "0")}. ${item.description}
    ${item.aiDescription ? `AI Description: ${item.aiDescription}` : ""}
-   Unity: ${item.unity}   QTY: ${item.qty}   Price/Unit: ${formatCurrency(
-      item.pricePerUnit
-    )}   Total: ${formatCurrency(item.totalPrice)}
+   Unity: ${item.unity}   QTY: ${
+      item.qty
+    }   Price/Unit: RWF ${item.pricePerUnit.toLocaleString()}   Total: ${formatCurrency(
+      item.totalPrice
+    )}
 `
   )
   .join("\n")}

@@ -117,7 +117,9 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
 
           const unityMatch = detailsLine.match(/Unity:\s+(.+?)\s+QTY:/);
           const qtyMatch = detailsLine.match(/QTY:\s+(\d+)/);
-          const priceMatch = detailsLine.match(/Price\/Unit:\s+([^\s]+)/);
+          const priceMatch = detailsLine.match(
+            /Price\/Unit:\s+RWF\s+(\d+(?:,\d{3})*)/
+          );
           const totalMatch = detailsLine.match(/Total:\s+(.+)/);
 
           items.push({
@@ -126,7 +128,7 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
             aiDescription,
             unity: unityMatch ? unityMatch[1] : "",
             qty: qtyMatch ? qtyMatch[1] : "",
-            pricePerUnit: priceMatch ? priceMatch[1] : "",
+            pricePerUnit: priceMatch ? priceMatch[1].replace(/,/g, "") : "",
             total: totalMatch ? totalMatch[1] : "",
           });
         }
@@ -319,7 +321,7 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
                       {item.qty}
                     </TableCell>
                     <TableCell className="text-sm md:text-base font-medium border-r border-gray-200">
-                      {item.pricePerUnit}
+                      {Number(item.pricePerUnit).toLocaleString()}
                     </TableCell>
                     <TableCell className="text-right font-semibold text-sm md:text-base">
                       {item.total}
