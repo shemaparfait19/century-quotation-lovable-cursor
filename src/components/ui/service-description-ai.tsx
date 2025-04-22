@@ -44,6 +44,22 @@ export function ServiceDescriptionAI({
         tile: "Tile and Grout Cleaning - Restoring tiles to their original appearance, cleaning and sealing grout lines.",
         general:
           "General Cleaning - Standard cleaning service including dusting, vacuuming, and surface sanitization.",
+        fumigation:
+          "Fumigation Services - Professional treatment to eliminate insects, rodents, and other pests using safe and effective fumigation techniques.",
+        pest: "Pest Control - Comprehensive pest management solutions to identify, treat, and prevent infestations of common household and commercial pests.",
+        tank: "Water Tank Cleaning - Professional cleaning, disinfection, and maintenance of water storage tanks to ensure clean and safe water supply.",
+        gutter:
+          "Gutter Cleaning - Thorough removal of debris, leaves, and buildup from gutters and downspouts to prevent water damage and maintain proper drainage.",
+        chimney:
+          "Chimney Cleaning - Professional removal of soot, creosote, and blockages from chimneys to prevent fire hazards and improve air quality.",
+        duct: "Air Duct Cleaning - Deep cleaning of ventilation systems to remove dust, allergens, and contaminants, improving indoor air quality and HVAC efficiency.",
+        pool: "Pool Maintenance - Professional cleaning and chemical balancing of swimming pools to ensure safe, clear, and hygienic water conditions.",
+        garden:
+          "Garden Maintenance - Comprehensive care for outdoor spaces including lawn mowing, pruning, weeding, and plant care.",
+        exterior:
+          "Exterior Cleaning - Power washing and cleaning of building exteriors, driveways, patios, and outdoor surfaces to remove dirt, grime, and mildew.",
+        commercial:
+          "Commercial Cleaning - Specialized cleaning services for businesses, retail spaces, and commercial properties to maintain a professional environment.",
       };
 
       const match = Object.keys(descriptions).find((key) =>
