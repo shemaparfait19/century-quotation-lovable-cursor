@@ -31,7 +31,7 @@ export function Header({ className }: HeaderProps) {
       <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between">
           <a href="/" className="text-2xl font-bold">
-            Century <span className="text-primary">Quotation sys</span>
+            Century <span className="text-primary">Quotation</span>
           </a>
 
           <nav className="hidden md:flex items-center space-x-8">
