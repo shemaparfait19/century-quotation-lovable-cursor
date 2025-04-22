@@ -337,10 +337,13 @@ export function ContactForm({ onQuotationGenerated }: ContactFormProps) {
 
 function formatQuotation(quotation: any) {
   const formatter = new Intl.NumberFormat("en-RW", {
-    style: "currency",
-    currency: "RWF",
+    style: "decimal",
     minimumFractionDigits: 0,
   });
+
+  const formatCurrency = (amount: number) => {
+    return `RWF ${formatter.format(amount)}`;
+  };
 
   return `
 CENTURY CLEANING AGENCY
@@ -359,22 +362,22 @@ ${quotation.items
     (item: any, index: number) => `
 ${(index + 1).toString().padStart(2, "0")}. ${item.description}
    ${item.aiDescription ? `AI Description: ${item.aiDescription}` : ""}
-   Unity: ${item.unity}   QTY: ${item.qty}   Price/Unit: ${formatter.format(
+   Unity: ${item.unity}   QTY: ${item.qty}   Price/Unit: ${formatCurrency(
       item.pricePerUnit
-    )}   Total: ${formatter.format(item.totalPrice)}
+    )}   Total: ${formatCurrency(item.totalPrice)}
 `
   )
   .join("\n")}
 
 ${"-".repeat(80)}
-Subtotal:         ${formatter.format(quotation.subtotal)}
+Subtotal:         ${formatCurrency(quotation.subtotal)}
 ${
   quotation.includeEBM
-    ? `EBM Tax (18%):    ${formatter.format(quotation.tax)}`
+    ? `EBM Tax (18%):    ${formatCurrency(quotation.tax)}`
     : ""
 }
 ${"-".repeat(80)}
-Grand Total:      ${formatter.format(quotation.totalAmount)}
+Grand Total:      ${formatCurrency(quotation.totalAmount)}
 
 Grand Total Equals To ${numberToWords(quotation.totalAmount)} Rwandan Francs ${
     quotation.includeEBM ? "18% VAT included" : "VAT excluded"

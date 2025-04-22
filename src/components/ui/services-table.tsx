@@ -152,10 +152,11 @@ export function ServicesTable({
       {fields.length > 0 && (
         <div className="text-right text-sm text-muted-foreground">
           Current Subtotal:{" "}
-          {new Intl.NumberFormat("en-RW", {
+          {new Intl.NumberFormat("en-RF", {
             style: "currency",
             currency: "RWF",
             minimumFractionDigits: 0,
+            currencyDisplay: "code",
           }).format(calculateSubtotal())}
         </div>
       )}
