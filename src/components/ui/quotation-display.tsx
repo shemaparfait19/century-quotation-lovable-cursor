@@ -236,13 +236,11 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
           className="bg-white p-4 md:p-8 rounded-xl border-2 border-gray-200 shadow-sm print:shadow-none"
         >
           <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
-              CENTURY CLEANING AGENCY
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              TIN: 120240444 | Tel: 0783500312
-            </p>
-            <div className="border-b-2 border-primary w-40 mx-auto mt-4"></div>
+            <img
+              src="/header.jpg"
+              alt="Century Cleaning Agency Header"
+              className="max-w-full h-auto mx-auto"
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
