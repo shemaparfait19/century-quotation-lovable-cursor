@@ -368,19 +368,29 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
             <p className="text-sm md:text-base">{content.comment}</p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200 shadow-sm">
-            <h4 className="font-bold mb-2 text-primary text-sm md:text-base">
-              Our Services:
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {content.services.split("/").map((service, index) => (
-                <span
-                  key={index}
-                  className="bg-primary/10 px-3 py-1.5 rounded-full text-xs md:text-sm font-medium hover:bg-primary/20 transition-colors border border-primary/20"
-                >
-                  {service.trim()}
-                </span>
-              ))}
+          <div className="mt-8 pt-6 border-t-2 border-gray-200 text-center flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex flex-col items-center md:flex-row md:items-end gap-4">
+              <img
+                src="/stamp.png"
+                alt="Company Stamp"
+                className="h-24 w-auto object-contain"
+                style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.10))" }}
+              />
+              <div className="text-left md:ml-6">
+                <h4 className="font-bold mb-2 text-primary text-sm md:text-base">
+                  Our Services:
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {content.services.split("/").map((service, index) => (
+                    <span
+                      key={index}
+                      className="bg-primary/10 px-3 py-1.5 rounded-full text-xs md:text-sm font-medium hover:bg-primary/20 transition-colors border border-primary/20"
+                    >
+                      {service.trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
