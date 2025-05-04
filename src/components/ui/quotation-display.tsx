@@ -368,28 +368,44 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
             <p className="text-sm md:text-base">{content.comment}</p>
           </div>
 
-          <div className="mt-8 pt-6 border-t-2 border-gray-200 text-center flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="flex flex-col items-center md:flex-row md:items-end gap-4">
+          <div className="mt-8 pt-6 border-t-2 border-gray-200 text-center">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-start gap-6">
+              <div className="flex flex-col items-center md:items-start md:mr-8">
+                <span className="text-left text-sm md:text-base mb-2">
+                  Prepared by
+                  <br />
+                  <span className="font-bold">NSENGIYUMVA ISAAC</span>
+                  <br />
+                  Managing Director
+                </span>
+              </div>
               <img
                 src="/stamp.png"
                 alt="Company Stamp"
-                className="h-24 w-auto object-contain"
+                className="h-40 w-auto object-contain"
                 style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.10))" }}
               />
-              <div className="text-left md:ml-6">
-                <h4 className="font-bold mb-2 text-primary text-sm md:text-base">
-                  Our Services:
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {content.services.split("/").map((service, index) => (
-                    <span
-                      key={index}
-                      className="bg-primary/10 px-3 py-1.5 rounded-full text-xs md:text-sm font-medium hover:bg-primary/20 transition-colors border border-primary/20"
-                    >
-                      {service.trim()}
-                    </span>
-                  ))}
-                </div>
+            </div>
+            <div className="flex flex-col items-center mt-6 w-full">
+              <div className="flex items-center w-full">
+                <div className="flex-grow border-t border-gray-400"></div>
+                <span
+                  className="bg-primary text-white font-bold px-4 py-1 rounded ml-2 mr-2 text-base md:text-lg"
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  Our Services
+                </span>
+                <div className="flex-grow border-t border-gray-400"></div>
+              </div>
+              <div className="mt-2 text-primary font-medium text-base md:text-lg flex flex-wrap justify-center gap-x-4 gap-y-1">
+                {content.services.split("/").map((service, index) => (
+                  <span key={index} className="italic">
+                    {service.trim()}
+                    {index !== content.services.split("/").length - 1 && (
+                      <span> / </span>
+                    )}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
