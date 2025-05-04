@@ -382,7 +382,7 @@ export function QuotationDisplay({ generatedQuote }: QuotationDisplayProps) {
               <img
                 src="/stamp.png"
                 alt="Company Stamp"
-                className="h-40 w-auto object-contain"
+                className="h-60 w-auto object-contain"
                 style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.10))" }}
               />
             </div>
